@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-02-05T20:51:26Z" name="Test Suite for Buildout" finished-at="2025-02-05T20:51:39Z" duration-ms="13169">
+    <groups>
+    </groups>
+    <test started-at="2025-02-05T20:51:26Z" name="Test Cases for Buildout" finished-at="2025-02-05T20:51:39Z" duration-ms="13169">
+      <class name="demo.TestCases">
+        <test-method is-config="true" signature="startBrowser()[pri:0, instance:demo.TestCases@3fb6cf60]" started-at="2025-02-06T02:21:26Z" name="startBrowser" finished-at="2025-02-06T02:21:30Z" duration-ms="3906" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- startBrowser -->
+        <test-method signature="testCase01()[pri:0, instance:demo.TestCases@3fb6cf60]" started-at="2025-02-06T02:21:30Z" name="testCase01" finished-at="2025-02-06T02:21:38Z" duration-ms="7918" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCase01 -->
+        <test-method is-config="true" signature="endTest()[pri:0, instance:demo.TestCases@3fb6cf60]" started-at="2025-02-06T02:21:38Z" name="endTest" finished-at="2025-02-06T02:21:39Z" duration-ms="1313" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- endTest -->
+      </class> <!-- demo.TestCases -->
+    </test> <!-- Test Cases for Buildout -->
+  </suite> <!-- Test Suite for Buildout -->
+</testng-results>
