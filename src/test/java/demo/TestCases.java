@@ -24,13 +24,9 @@ import net.bytebuddy.asm.Advice.Local;
 public class TestCases {
     ChromeDriver driver;
     Wrappers wrappers;
-    String expectedMessage = "Thanks for your response, Automation Wizard!";
+    final String expectedMessage = "Thanks for your response, Automation Wizard!";
     String actualMessage = "";
 
-    /*
-     * TODO: Write your tests here with testng @Test annotation. 
-     * Follow `testCase01` `testCase02`... format or what is provided in instructions
-     */
 
     @Test
     public void testCase01(){
@@ -58,26 +54,26 @@ public class TestCases {
         LocalDate dateSevenDaysBefore = currDate.minusDays(7);
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        System.out.println("Date7daysAgo: "+dateSevenDaysBefore.format(dateFormat));
+        // System.out.println("Date7daysAgo: "+dateSevenDaysBefore.format(dateFormat));
         wrappers.sendKeys(By.xpath("//input[@type='date']"),dateSevenDaysBefore.format(dateFormat));
 
 
         LocalTime currentTime = LocalTime.now();
         DateTimeFormatter timeFormatH = DateTimeFormatter.ofPattern("HH");
 
-        System.out.println("Hour: "+currentTime.format(timeFormatH));
+        // System.out.println("Hour: "+currentTime.format(timeFormatH));
         wrappers.sendKeys(By.xpath("(//input[@class='whsOnd zHQkBf'])[3]"),currentTime.format(timeFormatH));
 
         DateTimeFormatter timeFormatM = DateTimeFormatter.ofPattern("mm");
 
-        System.out.println("Minutes: "+currentTime.format(timeFormatM));
+        // System.out.println("Minutes: "+currentTime.format(timeFormatM));
         wrappers.sendKeys(By.xpath("(//input[@class='whsOnd zHQkBf'])[4]"),currentTime.format(timeFormatM));
 
         wrappers.clickOnElement(By.xpath("(//span[@class='l4V7wb Fxmcue'])[1]"));
 
         this.actualMessage = wrappers.getText(By.xpath("//div[@class='vHW8K']"));
 
-        System.out.println("The success message: "+actualMessage);
+        // System.out.println("The success message: "+actualMessage);
 
         Assert.assertEquals(actualMessage, expectedMessage,"Success message mismatched");
 
@@ -86,17 +82,15 @@ public class TestCases {
 
 
 
-     
-    /*
-     * Do not change the provided methods unless necessary, they will help in automation and assessment
-     */
+    
     @BeforeTest
     public void startBrowser()
     {
+        final int Max_Wait_Time = 30;
         System.setProperty("java.util.logging.config.file", "logging.properties");
 
         // NOT NEEDED FOR SELENIUM MANAGER
-        // WebDriverManager.chromedriver().timeout(30).setup();
+        // WebDriverManager.chromedriver().timeout(Max_Wait_Time).setup();
 
         ChromeOptions options = new ChromeOptions();
         LoggingPreferences logs = new LoggingPreferences();
