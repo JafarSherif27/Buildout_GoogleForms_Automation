@@ -1,15 +1,15 @@
-## GOOGLE_FORM_AUTOMATION:
+# GOOGLE_FORM_AUTOMATION:
 
-# package demo 
+## package demo 
 - contains the main Test case Implementation  (TestCases.java) 
-# package demo.locators.Locators
+## package demo.locators.Locators
 - contains all the locators required for the automation in  (Locators.java)
-# package demo.wrappers.Wrappers
+## package demo.wrappers.Wrappers
 - contains all the helper/wrapper methods for the automation in  (Wrappers.java)
 
 
-## Test Case Steps (TestCases.java) :
-# Step-by-step Automation Flow:
+# Test Case Steps (TestCases.java) :
+## Step-by-step Automation Flow:
 
 **Step 1:** Open the Chrome browser
 
