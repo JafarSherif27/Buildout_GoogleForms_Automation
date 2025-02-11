@@ -32,7 +32,7 @@ public class TestCases {
 
 
     //Test (Automation script)
-    @Test(invocationCount = 10)
+    @Test
     public void testCase01(){
         wrappers.logStatus("Start Test Case","testCase01");
 
