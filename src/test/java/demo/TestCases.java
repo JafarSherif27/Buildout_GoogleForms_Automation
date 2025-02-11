@@ -8,17 +8,20 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 // import io.github.bonigarcia.wdm.WebDriverManager;
 import demo.wrappers.Wrappers;
+import demo.locators.Locators;
 import net.bytebuddy.asm.Advice.Local;
+
 
 @SuppressWarnings({"unused"})
 public class TestCases {
@@ -28,65 +31,67 @@ public class TestCases {
     String actualMessage = "";
 
 
-    @Test
+    //Test (Automation script)
+    @Test(invocationCount = 10)
     public void testCase01(){
         wrappers.logStatus("Start Test Case","testCase01");
 
-        wrappers.navigateToUrl("https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform");
+        //Navigate to google form
+        wrappers.navigateToUrl(Wrappers.HOMEPAGE_URL);
 
-        wrappers.sendKeys(By.xpath("(//input[@class='whsOnd zHQkBf'])[1]"), "Crio Learner");
 
+        //Enter "Crio Learner" in NameField -Avoid using indexing -cause prone to break
+        wrappers.sendKeys(Locators.NAME_FIELD, "Crio Learner"); 
+
+
+        //Enter a text with epoch 
+        wrappers.sendKeys(Locators.TEXT_FIELD,String.format("%s %s","I want to be the best QA Engineer!",wrappers.getEpoch()));
+
+
+        //Select the experience radio button -- do not use hard coded xpath 
+        wrappers.selectExperience("0 - 2");
+
+
+        //Select checkbox of known tools -- do not use hard coded xpath 
+        wrappers.selectLearned("Java");
+        wrappers.selectLearned("Selenium");
+        wrappers.selectLearned("TestNG");
         
-        System.out.println("epoch: "+wrappers.getEpoch());
-        wrappers.sendKeys(By.tagName("textarea"),String.format("%s %s","I want to be the best QA Engineer!",wrappers.getEpoch()));
 
-        wrappers.clickOnElement(By.xpath("(//div[@class='bzfPab wFGF8'])[1]"));
-
-        wrappers.clickOnElement(By.xpath("(//div[@class='bzfPab wFGF8'])[5]"));
-        wrappers.clickOnElement(By.xpath("(//div[@class='bzfPab wFGF8'])[6]"));
-        wrappers.clickOnElement(By.xpath("(//div[@class='bzfPab wFGF8'])[8]"));
-
-        wrappers.clickOnElement(By.className("DEh1R"));
-        wrappers.clickOnElement(By.xpath("//div[@data-value='Mr' and @role='option']"));
+        //Select dropdown and select honorfic
+        wrappers.selectHonorfic("Mr");
 
 
-        LocalDate currDate = LocalDate.now();
-        LocalDate dateSevenDaysBefore = currDate.minusDays(7);
+        //Enter the date of 7 days ago in dd-MM-yyyy 
+        LocalDate currentDate = LocalDate.now();
+        LocalDate dateSevenDaysBefore = currentDate.minusDays(7);
 
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        // System.out.println("Date7daysAgo: "+dateSevenDaysBefore.format(dateFormat));
-        wrappers.sendKeys(By.xpath("//input[@type='date']"),dateSevenDaysBefore.format(dateFormat));
+        wrappers.sendKeys(Locators.DATE_FIELD,dateSevenDaysBefore.format(dateFormat));
 
 
-        LocalTime currentTime = LocalTime.now();
-        DateTimeFormatter timeFormatH = DateTimeFormatter.ofPattern("HH");
+        //Enter time 07:30 in HH:mm 
+        wrappers.sendKeys(Locators.HOUR_FIELD,"07");
+        wrappers.sendKeys(Locators.MINUTE_FIELD,"30"); 
 
-        // System.out.println("Hour: "+currentTime.format(timeFormatH));
-        wrappers.sendKeys(By.xpath("(//input[@class='whsOnd zHQkBf'])[3]"),currentTime.format(timeFormatH));
 
-        DateTimeFormatter timeFormatM = DateTimeFormatter.ofPattern("mm");
+        //Submit the form
+        wrappers.clickOnElement(Locators.SUBMIT_BUTTON);
 
-        // System.out.println("Minutes: "+currentTime.format(timeFormatM));
-        wrappers.sendKeys(By.xpath("(//input[@class='whsOnd zHQkBf'])[4]"),currentTime.format(timeFormatM));
 
-        wrappers.clickOnElement(By.xpath("(//span[@class='l4V7wb Fxmcue'])[1]"));
-
-        this.actualMessage = wrappers.getText(By.xpath("//div[@class='vHW8K']"));
-
-        // System.out.println("The success message: "+actualMessage);
-
+        //Assert success message 
+        this.actualMessage = wrappers.getText(Locators.SUCCESS_MESSAGE);
         Assert.assertEquals(actualMessage, expectedMessage,"Success message mismatched");
-
+        
         wrappers.logStatus("End Test Case","testCase01");
     }
 
 
 
-    
+     
+   //Set-up 
     @BeforeTest
-    public void startBrowser()
-    {
-        final int Max_Wait_Time = 30;
+    public void startBrowser(){
         System.setProperty("java.util.logging.config.file", "logging.properties");
 
         // NOT NEEDED FOR SELENIUM MANAGER
@@ -101,19 +106,18 @@ public class TestCases {
         options.addArguments("--remote-allow-origins=*");
 
         System.setProperty(ChromeDriverService.CHROME_DRIVER_LOG_PROPERTY, "build/chromedriver.log"); 
-
         driver = new ChromeDriver(options);
-
         driver.manage().window().maximize();
 
         this.wrappers = new Wrappers(driver);
     }
 
+
+    //Teardown
     @AfterTest
-    public void endTest()
-    {
+    public void endTest(){
         driver.close();
         driver.quit();
-
     }
+
 }
