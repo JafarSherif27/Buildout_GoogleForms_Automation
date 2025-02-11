@@ -25,7 +25,7 @@
 
 **Step 7:** Click on the dropdown under the question "How should you be addressed?" and select the appropriate honorfic from the options availble in the dropdown 
 
-**Step 8:** Enter the date seven days ago from the current date for the question "How should you be addressed?"
+**Step 8:** Enter the date seven days ago from the current date for the question "What was the date 7 days ago?"
 
 **Step 9:** Enter the time 07:30 for the question "What is the time right now?"
 
