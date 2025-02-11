@@ -1,10 +1,12 @@
 # GOOGLE_FORM_AUTOMATION:
 
-## package demo 
+## Package Structure 
+
+**package demo** 
 - contains the main Test case Implementation (TestCases.java) 
-## package demo.locators.Locators
+**package demo.locators.Locators**
 - contains all the locators required for the automation (Locators.java)
-## package demo.wrappers.Wrappers
+**package demo.wrappers.Wrappers**
 - contains all the helper/wrapper methods for the automation (Wrappers.java)
 
 
